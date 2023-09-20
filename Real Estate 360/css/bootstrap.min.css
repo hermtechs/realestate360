@@ -3642,12 +3642,7 @@ fieldset:disabled .btn {
 .nav-justified .nav-item .nav-link {
   width: 100%;
 }
-.tab-content > .tab-pane {
-  display: none;
-}
-.tab-content > .active {
-  display: block;
-}
+
 .navbar {
   position: relative;
   display: flex;

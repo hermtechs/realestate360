@@ -20,6 +20,9 @@
 .bg-light{
     background: rgba(236, 10, 10, 0.2) !important;
 }
+.btn-outline-active{
+    background: #F90001;
+}
 body{
     background: #f2dede !important;
 }
@@ -454,4 +457,11 @@ background: linear-gradient(90deg, #ba260c 0%, #920303 35% )!important;
     margin-right: 0;
     padding-right: 0;
     border-right: none;
+}
+
+
+/* tabs */
+.featured-item{
+    display: flex;
+    /* grid-template-columns: repeat(8, 1fr); */
 }

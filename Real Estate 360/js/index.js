@@ -7,6 +7,29 @@ const client = contentful.createClient({
   accessToken: "bMmA_soXsOoFeFEKZPAD3vdHl0bgejSUc4DoJQgDUQ4",
 });
 
+const tabBtns = document.querySelectorAll(".tab-btn");
+const tab1Content = document.querySelector(".tab-1-content");
+const tab2Content = document.querySelector(".tab-2-content");
+const tab3Content = document.querySelector(".tab-3-content");
+const mainTabContainer = document.querySelector(".tab-content");
+const allTabContentContainers = document.querySelectorAll(
+  ".tab-content-container"
+);
+
+tabBtns.forEach((btn) => btn.addEventListener("click", toggleTabs));
+
+function toggleTabs(e) {
+  const clickedTab = e.currentTarget;
+
+  //hiding all content of tabs
+  allTabContentContainers.forEach((contentContainer) => {
+    contentContainer.style.display = "none";
+    // console.log(contentContainer.id);
+  });
+  //displaying the content corresponding to clicked Tab
+  mainTabContainer.querySelector(`#${clickedTab.id}`).style.display = "block";
+}
+
 const featuredProperties = [];
 const allProperties = [];
 const forSaleProperties = [];
@@ -67,6 +90,7 @@ const featuredItemsDOM = () => {
   //mapping through each featuredItems array items
   const eachFeaturedItems = featuredProperties[0]
     .map((item) => {
+      console.log(item);
       const {
         propertyName,
         priceInWords,
@@ -75,13 +99,18 @@ const featuredItemsDOM = () => {
         propertSize,
         forRentSaleOrBoth,
         featuredProperty,
+        propertyPhoto,
+        district,
         propertyLocation,
       } = item.fields;
+      const photo = propertyPhoto.fields.file.url;
+      const photoUrl = `https:${photo}`;
+
       return `
 <div class="col-lg-4 col-md-6 wow fadeInUp featured-item" data-wow-delay="0.1s">
 <div class="property-item rounded overflow-hidden">
     <div class="position-relative overflow-hidden">
-        <a href=""><img class="img-fluid" src="img/re360-01.jpg" alt=""></a>
+        <a href=""><img class="img-fluid" src="${photoUrl}" alt="${propertyName}"></a>
         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For ${forRentSaleOrBoth}</div>
         <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">${propertyType}</div>
     </div>
@@ -93,7 +122,7 @@ const featuredItemsDOM = () => {
     <div class="d-flex border-top">
         <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>${propertSize}</small>
         <small class="flex-fill text-center border-end py-2"><i class="fa fa-dollar-sign text-primary me-2"></i>${priceInWords}</small>
-        <small class="flex-fill text-center py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>$district</small>
+        <small class="flex-fill text-center py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>${district}</small>
     </div>
 </div>
 </div>
@@ -101,7 +130,7 @@ const featuredItemsDOM = () => {
 `;
     })
     .join("");
-  console.log(eachFeaturedItems);
+  // console.log(eachFeaturedItems);
   const featuredItemsContainer = document.querySelector(
     ".featured-items-container"
   );
@@ -129,13 +158,18 @@ const forSaleItemsDOM = () => {
         propertSize,
         forRentSaleOrBoth,
         featuredProperty,
+        propertyPhoto,
+        district,
         propertyLocation,
       } = item.fields;
+      const photo = propertyPhoto.fields.file.url;
+      const photoUrl = `https:${photo}`;
+
       return `
 <div class="col-lg-4 col-md-6 wow fadeInUp for-sale-item" data-wow-delay="0.1s">
 <div class="property-item rounded overflow-hidden">
     <div class="position-relative overflow-hidden">
-        <a href=""><img class="img-fluid" src="img/re360-01.jpg" alt=""></a>
+        <a href=""><img class="img-fluid" src="${photoUrl}" alt="${propertyName}"></a>
         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For ${forRentSaleOrBoth}</div>
         <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">${propertyType}</div>
     </div>
@@ -147,7 +181,7 @@ const forSaleItemsDOM = () => {
     <div class="d-flex border-top">
         <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>${propertSize}</small>
         <small class="flex-fill text-center border-end py-2"><i class="fa fa-dollar-sign text-primary me-2"></i>${priceInWords}</small>
-        <small class="flex-fill text-center py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>$district</small>
+        <small class="flex-fill text-center py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>${district}</small>
     </div>
 </div>
 </div>
@@ -172,7 +206,8 @@ const forSaleItemsDOM = () => {
 //for rent properties
 const forRentItemsDOM = () => {
   //mapping through each featuredItems array items
-  const eachItemsForRent = featuredProperties[0]
+
+  const eachItemsForRent = forRentProperties[0]
     .map((item) => {
       const {
         propertyName,
@@ -182,13 +217,19 @@ const forRentItemsDOM = () => {
         propertSize,
         forRentSaleOrBoth,
         featuredProperty,
+        propertyPhoto,
+        district,
         propertyLocation,
       } = item.fields;
+
+      const photo = propertyPhoto.fields.file.url;
+      const photoUrl = `https:${photo}`;
+
       return `
 <div class="col-lg-4 col-md-6 wow fadeInUp for-rent-item" data-wow-delay="0.1s">
 <div class="property-item rounded overflow-hidden">
     <div class="position-relative overflow-hidden">
-        <a href=""><img class="img-fluid" src="img/re360-01.jpg" alt=""></a>
+        <a href=""><img class="img-fluid" src="${photoUrl}" alt="${propertyName}"></a>
         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For ${forRentSaleOrBoth}</div>
         <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">${propertyType}</div>
     </div>
@@ -200,7 +241,7 @@ const forRentItemsDOM = () => {
     <div class="d-flex border-top">
         <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>${propertSize}</small>
         <small class="flex-fill text-center border-end py-2"><i class="fa fa-dollar-sign text-primary me-2"></i>${priceInWords}</small>
-        <small class="flex-fill text-center py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>$district</small>
+        <small class="flex-fill text-center py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>${district}</small>
     </div>
 </div>
 </div>
@@ -209,6 +250,7 @@ const forRentItemsDOM = () => {
     })
     .join("");
 
+  // console.log(eachItemsForRent);
   const forRentItemsElement = document.querySelector(
     ".for-rent-items-container"
   );

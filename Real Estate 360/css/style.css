@@ -461,7 +461,10 @@ background: linear-gradient(90deg, #ba260c 0%, #920303 35% )!important;
 
 
 /* tabs */
-.featured-item{
-    display: flex;
-    /* grid-template-columns: repeat(8, 1fr); */
+
+.tab-2-content{
+    display: none;
+}
+.tab-3-content{
+    display: none;
 }

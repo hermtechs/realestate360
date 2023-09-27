@@ -25,6 +25,7 @@
 }
 body{
     background: #f2dede !important;
+    overflow-x: hidden;
 }
 a{
     color: #F90001;
@@ -467,4 +468,10 @@ background: linear-gradient(90deg, #ba260c 0%, #920303 35% )!important;
 }
 .tab-3-content{
     display: none;
+}
+.searched-items-container{
+    margin: 1rem;
+}
+select, .capitalize{
+    text-transform: capitalize;
 }
